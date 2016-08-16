@@ -1,0 +1,29 @@
+nav{
+	background-color: rgba(100,213,255,0.9);
+
+	ul{
+		a{
+			cursor: pointer;
+			color: #fff;
+			transition: all 200ms ease-in-out;
+		}
+		a:hover{
+			color: rgba(100,213,255,0.9);
+			background: #fff;
+		}
+
+	}
+	.navbar-toggle{
+		color: #fff;
+		border: 1px solid #fff;
+		.icon-bar{
+			background-color: #fff;
+		}
+	}
+}
+
+footer{
+	min-height: 60px;
+	width: 100%;
+    background-color: #f5f5f5;
+}
