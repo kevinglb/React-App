@@ -2,35 +2,58 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Router, Route, IndexRoute, hashHistory} from 'react-router';
 
-
 import Layout from '../component/layout';
-import Header from '../component/Header';
-import Archives from '../component/Archives';
-import Featured from '../component/Featured';
-import Settings from '../component/Settings';
-import Footer from '../component/Footer';
+import Navigation from '../component/navigation';
+import Home from '../component/Home';
+
+import Header from '../Component/header';
+
+import Course from '../component/course';
+import Topic from '../component/topic';
+import Note from '../component/note';
+import Search from '../component/search';
+import HotTopic from '../component/hotTopic';
+import NewTopic from '../component/newTopic';
+import Add from '../component/add';
 
 const app = document.getElementById('app');
+const navigation = document.getElementById('navigation');
 const header = document.getElementById('header');
+
 const footer = document.getElementById('footer')
+
+// ReactDOM.render(<Header/>,header);
 
 ReactDOM.render(
 	<Router history={hashHistory}>
-		<Route path="/" component={Header}>
-			<Route path="featured"></Route>
-			<Route path="archives"></Route>
-			<Route path="settings"></Route>
+		<Route path="/" component={Navigation}>
+			<Route path="home"></Route>
+			<Route path="course"></Route>
+			<Route path="topic">
+				<IndexRoute ></IndexRoute>
+				<Route path="hot" ></Route>
+				<Route path="new" ></Route>
+			</Route>
+			<Route path="note"></Route>
+			<Route path="search"></Route>
+			<Route path="add" ></Route>
 		</Route>
-	</Router>,header);
+	</Router>,navigation);
 
 ReactDOM.render(
 	<Router history={hashHistory}>
 		<Route path="/" component={Layout}>
-			<Route path="featured" component={Featured}></Route>
-			<Route path="archives" component={Archives}></Route>
-			<Route path="settings" component={Settings}></Route>
+			<IndexRoute component={Home}></IndexRoute>
+			<Route path="course" component={Course}></Route>
+			<Route path="topic" component={Topic}>
+				<IndexRoute component={HotTopic}></IndexRoute>
+				<Route path="hot" component={HotTopic}></Route>
+				<Route path="new" component={NewTopic}></Route>
+			</Route>
+			<Route path="note" component={Note}></Route>
+			<Route path="search" component={Search}></Route>
+			<Route path="add" component={Add}></Route>
 		</Route>
 	</Router>,
  app);
 
-ReactDOM.render(<Footer/>,footer);

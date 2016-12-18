@@ -10,18 +10,37 @@
     <title>React App</title>
     <!-- styles -->
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../plugins/Swiper-3.3.1/dist/css/swiper.min.css">
+    <link rel="stylesheet" type="text/css" href="../style/normalize.css">
     <link rel="stylesheet" type="text/css" href="../style/main.css">
     <!-- styles -->
+
+    <script type="text/javascript">
+        var phoneWidth = parseInt(window.screen.width),
+            phoneScale = phoneWidth / 640,
+            ua = navigator.userAgent;
+
+        if (/Android (\d+\.\d+)/.test(ua)) {
+            var version = parseFloat(RegExp.$1);
+            if (version > 2.3) {
+                document.write('<meta name="viewport" content="width=640, minimum-scale = ' + phoneScale + ', maximum-scale = ' + phoneScale + ', target-densitydpi=device-dpi">');
+            }else {
+                document.write('<meta name="viewport" content="width=640, target-densitydpi=device-dpi">');
+            }
+        }else {
+            document.write('<meta name="viewport" content="width=640, user-scalable=no, target-densitydpi=device-dpi">');
+        }   
+    </script>
   </head>
   <body>
-
+    <!-- Header -->
+    <div id="header" class="top-fix"></div>
+    <!-- Header -->
   	<!-- Navigation -->
-  	<nav class="navbar navbar-fixed-top" role="navigation" id="header"></nav>
+  	<div id="navigation" class="left-nav"></div>
     <!-- navigation -->
     <!-- container -->
-    <div class="container" style="margin-top:60px">
-      <div id="app"></div>
-    </div>
+    <div id="app"></div>
     <!-- container -->
     <!-- footer -->
     <footer class="navbar-fixed-bottom" id="footer"></footer>
@@ -29,8 +48,9 @@
     
 
     <!-- scripts -->
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!--<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
+    <script type="text/javascript" src="../plugins/Swiper-3.3.1/dist/js/swiper.min.js"></script>
     <script src="bundle.js"></script>
     <!-- scripts -->
   </body>
