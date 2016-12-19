@@ -2,6 +2,8 @@ import React from 'react';
 import Input from './element/Input';
 import Button from './element/Button';
 import TextArea from './element/TextArea';
+// import ListStore from '../store/ListStore';
+// import ButtonActions from '../actions/ButtonActions';
 
 export default class AddContainer extends React.Component{
 	constructor(props) {
@@ -17,12 +19,25 @@ export default class AddContainer extends React.Component{
     	this.isEmpty = this.isEmpty.bind(this);
 	}  
 
+	// componentDidMount() {
+ //    	ListStore.addChangeListener(this._onChange);
+ //  	}
+
+ //  	componentWillUnmount() {
+ //   	 	ListStore.removeChangeListener(this._onChange);
+ //  	}
+
+ //  	_onChange() {
+ //    	this.setState({
+ //      		items: ListStore.getAll()
+ //    	});
+ //  	}
+
 	handleClick(e){
 		var key = e.target.className;
-		console.log(key);
-		switch(key){
-			case 'clean-btn':
-				var clean = confirm('R u sure u want to clean it up?');
+		if(key.indexOf('clean-btn') !== -1){
+			console.log('clean-btn');
+			var clean = confirm('R u sure u want to clean it up?');
 				if(clean){
 					this.setState({
 						title: '',
@@ -30,14 +45,14 @@ export default class AddContainer extends React.Component{
   						detail : ''
 					});
 				}
-				break;
-			case 'save-btn':
-				//save all input
-				alert('save successfully');
-				this.setState({title: '',time: '',detail : ''});
-				break;
-			default:
-				break;
+			return;
+		}
+
+		if(key.indexOf('save-btn') !== -1){
+			alert('save successfully');
+			ButtonActions.addToDo(this.state.title,this.state.time, this.state.detail);
+			this.setState({title: '',time: '',detail : ''});
+			return;
 		}
 	}
 
@@ -49,9 +64,11 @@ export default class AddContainer extends React.Component{
 				this.setState({title: e.target.value});
 				break;
 			case 'time-input':
+				console.log('time changed');
 				this.setState({time: e.target.value});
 				break;
 			case 'detail-textarea':
+				console.log('detail changed');
 				this.setState({detail: e.target.value});
 			default:
 				break;
@@ -70,8 +87,8 @@ export default class AddContainer extends React.Component{
 				<Input type="text" className="time-input" placeholder="Event Time" value={this.state.time}  onChange={this.handleChange}/>
 				<TextArea type="text" className="detail-textarea" placeholder="Event Detail" value={this.state.detail} onChange={this.handleChange}/>
 				<div className="btnWrap">
-					<Button type="button" className="save-btn"  onClick={this.handleClick} text="Save" disabled={this.isEmpty}/>
-					<Button className="clean-btn" onClick={this.handleClick} text="Clean"/>
+					<Button type="button" className="btn btn-success save-btn"  onClick={this.handleClick} text="Save"/>
+					<Button className="btn clean-btn btn-danger" onClick={this.handleClick} text="Clean"/>
 				</div>
 			</div>
 		);

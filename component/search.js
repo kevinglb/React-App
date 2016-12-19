@@ -48,13 +48,14 @@ export default class Search extends React.Component{
 
         }
         var todoList = libraries.map(function(l){
-                            return (<li key={l.name}>{l.name} <a href={l.url}>{l.url}</a></li>);
+                            return (
+                                <li key={l.name}>{l.name}<a href={l.url} target="_blank">{l.url}</a></li>
+                            );
                         });
 
         return(
             <div className="todoList">
                 <Input type="text" value={this.state.searchString} onChange={this.handleChange} placeholder="Type here" />
-
                 <ul>
                     {todoList} 
                 </ul>

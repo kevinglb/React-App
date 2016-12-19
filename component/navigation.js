@@ -11,6 +11,7 @@ export default class Navigation extends React.Component{
 	}
 	render(){
 		return(
+      <div className="left-nav">
 			<nav className="navbar navbar-fixed-top" role="navigation">
 			<div className="container">
   				<div className="navbar-header">
@@ -23,7 +24,6 @@ export default class Navigation extends React.Component{
   				</div>
         	<div className="collapse navbar-collapse" id="topNavigation">
           	<ul className="nav navbar-nav">
-          		{this.props.children}
             	<li>
               	<Link to="/" activeClassName="active">Home</Link>
             	</li>
@@ -48,6 +48,7 @@ export default class Navigation extends React.Component{
        			 </div>
       		</div>
       		</nav>
+        </div>
 		);
 	}
 }

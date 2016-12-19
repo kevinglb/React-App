@@ -1,12 +1,12 @@
-import AppDispatcher from '../dispatcher/AppDispatcher';
+// import AppDispatcher from '../dispatcher/AppDispatcher';
 
-var ButtonActions = {
-	addNewToDo: function(title,time,detail){
-		AppDispatcher.dispatch({
-      		actionType: 'ADD_NEW_TODO',
-      		title: title,
-      		time: time,
-      		detail: detail
-    	});
-	}
-}
+// var ButtonActions = {
+// 	addToDo: function(title,time,detail){
+// 		AppDispatcher.dispatch({
+//       		actionType: 'ADD_TODO',
+//       		title: title,
+//       		time: time,
+//       		detail: details
+//     	});
+// 	}
+// }

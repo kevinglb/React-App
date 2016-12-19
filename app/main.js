@@ -2,12 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Router, Route, IndexRoute, hashHistory} from 'react-router';
 
+import { Provider } from 'react-redux';
+
 import Layout from '../component/layout';
-import Navigation from '../component/navigation';
 import Home from '../component/Home';
-
-import Header from '../Component/header';
-
 import Course from '../component/course';
 import Topic from '../component/topic';
 import Note from '../component/note';
@@ -17,28 +15,6 @@ import NewTopic from '../component/newTopic';
 import Add from '../component/add';
 
 const app = document.getElementById('app');
-const navigation = document.getElementById('navigation');
-const header = document.getElementById('header');
-
-const footer = document.getElementById('footer')
-
-// ReactDOM.render(<Header/>,header);
-
-ReactDOM.render(
-	<Router history={hashHistory}>
-		<Route path="/" component={Navigation}>
-			<Route path="home"></Route>
-			<Route path="course"></Route>
-			<Route path="topic">
-				<IndexRoute ></IndexRoute>
-				<Route path="hot" ></Route>
-				<Route path="new" ></Route>
-			</Route>
-			<Route path="note"></Route>
-			<Route path="search"></Route>
-			<Route path="add" ></Route>
-		</Route>
-	</Router>,navigation);
 
 ReactDOM.render(
 	<Router history={hashHistory}>

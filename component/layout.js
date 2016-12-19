@@ -1,5 +1,7 @@
 import React from 'react';
-import {Link} from	'react-router'
+import {Link} from	'react-router';
+import Navigation from './navigation';
+
 
 export default class Layout extends React.Component{
 	constructor(){
@@ -14,8 +16,11 @@ export default class Layout extends React.Component{
 			marginTop:"80px"
 		};
 		return(
-			<div style={containerStyle}>
-				{this.props.children}
+			<div>
+				<Navigation />
+				<div style={containerStyle}>
+					{this.props.children}
+				</div>
 			</div>
 		);
 	}
