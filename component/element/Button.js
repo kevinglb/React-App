@@ -9,10 +9,11 @@ export default class Button extends React.Component{
 		var type = this.props.type,
 			text = this.props.text,
 			disabled = this.props.disabled,
-			className = this.props.className;
+			className = this.props.className,
+			data = this.props.data;
 			
 		return(
-			<button className={className} type={type} onClick={this.props.onClick} disabled={disabled}>
+			<button className={className} type={type} onClick={this.props.onClick} disabled={disabled} data={data}>
 				{text}
 			</button>
 		);

@@ -1,4 +1,4 @@
-import {ADD_TODO} from './constants'; //引入action常量
+import {ADD_TODO,DELETE_TODO} from './constants'; //引入action常量
 
 
 // export const ADD_TODO = '';
@@ -21,6 +21,13 @@ export function addToDo(number,title,time,detail) {
   };
 }
 
+export function deleteToDo(index){
+	console.log(index);
+	return {
+		type: DELETE_TODO,
+		index: index
+	};
+}
 // export function completeTodo(index) {
 //   return {
 //     type: "COMPLETE_TODO",

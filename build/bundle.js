@@ -30621,9 +30621,8 @@
 	    var action = arguments[1];
 
 	    // 根据不同的action type进行state的更新
-	    console.log(action.type);
+	    //console.log(action.type);
 	    switch (action.type) {
-
 	        case _constants.ADD_TODO:
 	            var l = {};
 	            l.title = action.title;
@@ -30633,7 +30632,11 @@
 	            console.log(l);
 	            return Object.assign({}, state, { number: state.number + action.number, lists: state.lists });
 	            break;
-
+	        case _constants.DELETE_TODO:
+	            var index = action.index;
+	            //console.log(action.index);
+	            state.lists.splice(index, 1);
+	            return Object.assign({}, state, { lists: state.lists });
 	        default:
 	            return state;
 	    }
@@ -30655,6 +30658,7 @@
 	var GETSUCCESS = exports.GETSUCCESS = 'GETSUCCESS';
 	var REFRESHDATA = exports.REFRESHDATA = 'REFRESHDATA';
 	var ADD_TODO = exports.ADD_TODO = 'ADD_TODO';
+	var DELETE_TODO = exports.DELETE_TODO = 'DELETE_TODO';
 
 /***/ },
 /* 293 */
@@ -46121,7 +46125,7 @@
 
 	var _Search2 = _interopRequireDefault(_Search);
 
-	var _AddContainer = __webpack_require__(660);
+	var _AddContainer = __webpack_require__(659);
 
 	var _AddContainer2 = _interopRequireDefault(_AddContainer);
 
@@ -46331,11 +46335,23 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Input = __webpack_require__(659);
+	var _Input = __webpack_require__(660);
 
 	var _Input2 = _interopRequireDefault(_Input);
 
+	var _Button = __webpack_require__(661);
+
+	var _Button2 = _interopRequireDefault(_Button);
+
+	var _redux = __webpack_require__(255);
+
 	var _reactRedux = __webpack_require__(246);
+
+	var _todo = __webpack_require__(663);
+
+	var _store = __webpack_require__(282);
+
+	var _store2 = _interopRequireDefault(_store);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -46351,14 +46367,14 @@
 	    function Search(props) {
 	        _classCallCheck(this, Search);
 
-	        var _this = _possibleConstructorReturn(this, (Search.__proto__ || Object.getPrototypeOf(Search)).call(this, props));
+	        var _this2 = _possibleConstructorReturn(this, (Search.__proto__ || Object.getPrototypeOf(Search)).call(this, props));
 
-	        _this.state = {
+	        _this2.state = {
 	            searchString: ''
 	        };
-
-	        _this.handleChange = _this.handleChange.bind(_this);
-	        return _this;
+	        _this2.handleChange = _this2.handleChange.bind(_this2);
+	        _this2.handleDelete = _this2.handleDelete.bind(_this2);
+	        return _this2;
 	    }
 
 	    _createClass(Search, [{
@@ -46367,31 +46383,37 @@
 	            this.setState({ searchString: e.target.value });
 	        }
 	    }, {
+	        key: 'handleDelete',
+	        value: function handleDelete(e) {
+	            // var targetKey = e.target.datakey;
+	            var index = e.target.getAttribute('data');
+	            _store2.default.dispatch((0, _todo.deleteToDo)(index));
+	            this.forceUpdate();
+	        }
+	    }, {
 	        key: 'render',
 	        value: function render() {
-	            var lists = this.props.lists;
+	            var lists = this.props.lists; //get list from store
 
+	            var _this = this;
 	            var list = lists;
 	            var searchString = this.state.searchString.trim().toLowerCase();
-
 	            if (searchString.length > 0) {
-
-	                // We are searching. Filter the results.
-
 	                list = list.filter(function (l) {
 	                    return l.title.toLowerCase().match(searchString);
 	                });
 	            }
-	            var todoList = list.map(function (l) {
+	            var todoList = list.map(function (l, index) {
 	                return _react2.default.createElement(
 	                    'li',
-	                    { key: l.title },
+	                    { key: index },
 	                    l.title,
 	                    _react2.default.createElement(
-	                        'a',
-	                        { href: l.detail, target: '_blank' },
+	                        'span',
+	                        null,
 	                        l.detail
-	                    )
+	                    ),
+	                    _react2.default.createElement(_Button2.default, { className: 'btn btn-danger', type: 'button', onClick: _this.handleDelete, text: 'Delete', data: index })
 	                );
 	            });
 
@@ -46411,77 +46433,27 @@
 	    return Search;
 	}(_react2.default.Component);
 
-	var getList = function getList(state) {
+	// const getList = state => {
+	//     return {
+	//         lists: state.update.lists
+	//     }
+	// }
+
+
+	function mapStateToProps(state) {
 	    return {
 	        lists: state.update.lists
 	    };
-	};
+	}
 
+	function mapDispatchToProps(dispatch) {
+	    return (0, _redux.bindActionCreators)({ deleteToDo: _todo.deleteToDo }, dispatch);
+	}
 	// 利用connect将组件与Redux绑定起来
-	exports.default = (0, _reactRedux.connect)(getList)(Search);
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Search);
 
 /***/ },
 /* 659 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var AddContainer = function (_React$Component) {
-		_inherits(AddContainer, _React$Component);
-
-		function AddContainer(props) {
-			_classCallCheck(this, AddContainer);
-
-			return _possibleConstructorReturn(this, (AddContainer.__proto__ || Object.getPrototypeOf(AddContainer)).call(this, props));
-		}
-
-		_createClass(AddContainer, [{
-			key: "getDefaultProps",
-			value: function getDefaultProps() {
-				return {
-					type: "text"
-				};
-			}
-		}, {
-			key: "onChange",
-			value: function onChange(e) {}
-		}, {
-			key: "render",
-			value: function render() {
-				var type = this.props.type,
-				    placeholder = this.props.placeholder,
-				    className = this.props.className,
-				    value = this.props.value;
-				// var onChange = this.props.onChange;
-				return _react2.default.createElement("input", { type: type, placeholder: placeholder, className: className, value: value, onChange: this.props.onChange });
-			}
-		}]);
-
-		return AddContainer;
-	}(_react2.default.Component);
-
-	exports.default = AddContainer;
-
-/***/ },
-/* 660 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -46496,7 +46468,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Input = __webpack_require__(659);
+	var _Input = __webpack_require__(660);
 
 	var _Input2 = _interopRequireDefault(_Input);
 
@@ -46640,6 +46612,66 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(AddContainer);
 
 /***/ },
+/* 660 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var AddContainer = function (_React$Component) {
+		_inherits(AddContainer, _React$Component);
+
+		function AddContainer(props) {
+			_classCallCheck(this, AddContainer);
+
+			return _possibleConstructorReturn(this, (AddContainer.__proto__ || Object.getPrototypeOf(AddContainer)).call(this, props));
+		}
+
+		_createClass(AddContainer, [{
+			key: "getDefaultProps",
+			value: function getDefaultProps() {
+				return {
+					type: "text"
+				};
+			}
+		}, {
+			key: "onChange",
+			value: function onChange(e) {}
+		}, {
+			key: "render",
+			value: function render() {
+				var type = this.props.type,
+				    placeholder = this.props.placeholder,
+				    className = this.props.className,
+				    value = this.props.value;
+				// var onChange = this.props.onChange;
+				return _react2.default.createElement("input", { type: type, placeholder: placeholder, className: className, value: value, onChange: this.props.onChange });
+			}
+		}]);
+
+		return AddContainer;
+	}(_react2.default.Component);
+
+	exports.default = AddContainer;
+
+/***/ },
 /* 661 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -46678,11 +46710,12 @@
 				var type = this.props.type,
 				    text = this.props.text,
 				    disabled = this.props.disabled,
-				    className = this.props.className;
+				    className = this.props.className,
+				    data = this.props.data;
 
 				return _react2.default.createElement(
 					'button',
-					{ className: className, type: type, onClick: this.props.onClick, disabled: disabled },
+					{ className: className, type: type, onClick: this.props.onClick, disabled: disabled, data: data },
 					text
 				);
 			}
@@ -46752,6 +46785,7 @@
 	  value: true
 	});
 	exports.addToDo = addToDo;
+	exports.deleteToDo = deleteToDo;
 
 	var _constants = __webpack_require__(292);
 
@@ -46778,6 +46812,13 @@
 	  };
 	}
 
+	function deleteToDo(index) {
+	  console.log(index);
+	  return {
+	    type: _constants.DELETE_TODO,
+	    index: index
+	  };
+	}
 	// export function completeTodo(index) {
 	//   return {
 	//     type: "COMPLETE_TODO",

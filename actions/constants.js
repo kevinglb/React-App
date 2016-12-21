@@ -5,3 +5,4 @@ export const LOADDATA = 'LOADDATA';
 export const GETSUCCESS = 'GETSUCCESS';
 export const REFRESHDATA = 'REFRESHDATA';
 export const ADD_TODO = 'ADD_TODO';
+export const DELETE_TODO = 'DELETE_TODO';

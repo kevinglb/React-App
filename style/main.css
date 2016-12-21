@@ -82,7 +82,11 @@ footer {
     line-height: 16px;
     color: #969d9d;
 }
-
+.todoList ul li .btn.btn-danger{
+  position: absolute;
+  right: 5px;
+  top: 8px;
+}
 .todoList ul li:hover{
     background-color:#d8f2f1;
 }
@@ -125,17 +129,4 @@ footer {
 }
 .addContainer .btnWrap button{ 
   float: right;
-}
-
-button{
-  font-size: 16px;
-  padding: 10px 15px;
-  text-align: center;
-  margin-left: 15px;
-  border-radius: 6.5px;
-  box-shadow: none;
-  text-decoration: none;
-}
-button::disabled{
-  cursor: not-allowed;
 }
