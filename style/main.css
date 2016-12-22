@@ -58,21 +58,21 @@ footer {
 
 .todoList ul{
     list-style: none;
-    width: 500px;
+    width: 640px;
     text-align: left;
     margin: 0 auto;
 }
 
 .todoList ul li{
     display: block;
-    padding: 15px 10px;
     width: 100%;
     background-color: #F8F8F8;
     color: #7B8585;
-    margin-bottom: 3px;
+    margin: 8px auto;
     position: relative;
     transition: 250ms;
     cursor: pointer;
+    border-radius: 7.5px;
 }
 
 .todoList ul li a{
@@ -82,10 +82,26 @@ footer {
     line-height: 16px;
     color: #969d9d;
 }
+
+.todoList ul li .todo-title{
+  background-color: rgba(100, 213, 255, 0.9);
+  padding: 15px 10px;
+  color: #fff;
+  font-weight: bold;
+  font-size: 20px;
+}
+.todoList ul li .todo-detail{
+  padding: 15px 10px;
+}
 .todoList ul li .btn.btn-danger{
   position: absolute;
   right: 5px;
-  top: 8px;
+  top: 12px;
+}
+.todoList ul li .btn.btn-success{
+  position: absolute;
+  right: 90px;
+  top: 12px;
 }
 .todoList ul li:hover{
     background-color:#d8f2f1;

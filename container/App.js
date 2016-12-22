@@ -16,7 +16,6 @@ export default class App extends React.Component{
       marginTop:"80px"
     };
 		return(
-
 			<div>
       		<div className="left-nav">
 					<nav className="navbar navbar-fixed-top" role="navigation">
@@ -35,7 +34,7 @@ export default class App extends React.Component{
               						<Link to="/" activeClassName="active">Home</Link>
             					</li>
               					<li>
-                					<Link to="search" activeClassName="active">Search</Link>
+                					<Link to="todolist" activeClassName="active">ToDo</Link>
               					</li>
               					<li>
                 					<Link to="add" activeClassName="active">

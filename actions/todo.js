@@ -1,4 +1,4 @@
-import {ADD_TODO,DELETE_TODO} from './constants'; //引入action常量
+import {ADD_TODO,DELETE_TODO,COMPLETE_TODO,UNDO_TODO} from './constants'; //引入action常量
 
 
 // export const ADD_TODO = '';
@@ -21,20 +21,25 @@ export function addToDo(number,title,time,detail) {
   };
 }
 
-export function deleteToDo(index){
-	console.log(index);
+export function deleteToDo(number){
 	return {
 		type: DELETE_TODO,
-		index: index
+		index: number
 	};
 }
-// export function completeTodo(index) {
-//   return {
-//     type: "COMPLETE_TODO",
-//     index: index
-//   };
-// }
+export function completeToDo(number) {
+  return {
+    	type: COMPLETE_TODO,
+    	index: number
+  };
+}
 
+export function undoToDo(number){
+	return {
+		type: UNDO_TODO,
+		index: number
+	}
+}
 // export function setVisibilityFilter(filter) {
 //   return {
 //     type: "SET_VISIBILITY_FILTER",

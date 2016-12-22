@@ -1,24 +1,23 @@
-import {ADD_TODO,DELETE_TODO} from '../actions/constants';
+import {ADD_TODO,DELETE_TODO,COMPLETE_TODO,UNDO_TODO} from '../actions/constants';
 
 //初始state
 const initialState = {
-    number: 1,
-    lists: [
-        { title: 'Backbone.js', detail: 'http://documentcloud.github.io/backbone/'},
-        { title: 'AngularJS', detail: 'https://angularjs.org/'},
-        { title: 'jQuery', detail: 'http://jquery.com/'},
-        { title: 'Prototype', detail: 'http://www.prototypejs.org/'},
-        { title: 'React', detail: 'http://facebook.github.io/react/'},
-        { title: 'Ember', detail: 'http://emberjs.com/'},
-        { title: 'Knockout.js', detail: 'http://knockoutjs.com/'},
-        { title: 'Dojo', detail: 'http://dojotoolkit.org/'},
-        { title: 'Mootools', detail: 'http://mootools.net/'},
-        { title: 'Underscore', detail: 'http://documentcloud.github.io/underscore/'},
-        { title: 'Lodash', detail: 'http://lodash.com/'},
-        { title: 'Moment', detail: 'http://momentjs.com/'},
-        { title: 'Express', detail: 'http://expressjs.com/'},
-        { title: 'Koa', detail: 'http://koajs.com/'}
-    
+    number: 14,
+    todoList: [
+        { number: 0, title: 'Backbone.js', detail: 'http://documentcloud.github.io/backbone/',done: false},
+        { number: 1, title: 'AngularJS', detail: 'https://angularjs.org/',done: false},
+        { number: 2, title: 'jQuery', detail: 'http://jquery.com/',done: false},
+        { number: 3, title: 'Prototype', detail: 'http://www.prototypejs.org/',done: false},
+        { number: 4, title: 'React', detail: 'http://facebook.github.io/react/',done: false},
+        { number: 5, title: 'Ember', detail: 'http://emberjs.com/',done: false},
+        { number: 6, title: 'Knockout.js', detail: 'http://knockoutjs.com/',done: false},
+        { number: 7, title: 'Dojo', detail: 'http://dojotoolkit.org/',done: false},
+        { number: 8, title: 'Mootools', detail: 'http://mootools.net/'},
+        { number: 9, title: 'Underscore', detail: 'http://documentcloud.github.io/underscore/',done: false},
+        { number: 10, title: 'Lodash', detail: 'http://lodash.com/',done: false},
+        { number: 11, title: 'Moment', detail: 'http://momentjs.com/',done: false},
+        { number: 12, title: 'Express', detail: 'http://expressjs.com/',done: false},
+        { number: 13, title: 'Koa', detail: 'http://koajs.com/',done: false}
     ],
     data: []
 }
@@ -34,15 +33,41 @@ export default function update(state = initialState, action) {
             l.title = action.title;
             l.time = action.time;
             l.detail = action.detail;
-            state.lists.push(l);
+            state.todoList.push(l);
             console.log(l);
-            return Object.assign({}, state, {number: state.number + action.number, lists: state.lists });
+            return Object.assign({}, state, {number: state.number + action.number, todoList: state.todoList });
             break;
         case DELETE_TODO:
-            var index = action.index;
-            //console.log(action.index);
-            state.lists.splice(index,1);
-            return Object.assign({}, state, {lists: state.lists});
+            //不能确保i和action.number相等 所以需要遍历数组
+            var len = state.todoList.length;
+            for(var i =0;i<len;i++){
+                if(state.todoList[i].number == action.index){
+                    state.todoList.splice(i,1);
+                    break;
+                }
+            }
+            return Object.assign({}, state, {todoList: state.todoList});
+            break;
+        case COMPLETE_TODO:
+            //不能确保i和action.number相等 所以需要遍历数组
+            var len = state.todoList.length;
+            for(var i =0;i<len;i++){
+                if(state.todoList[i].number == action.index){
+                    state.todoList[i].done = true;
+                }
+            }
+            return Object.assign({}, state, {todoList: state.todoList});
+            break;
+        case UNDO_TODO:
+             //不能确保i和action.number相等 所以需要遍历数组
+            var len = state.todoList.length;
+            for(var i =0;i<len;i++){
+                if(state.todoList[i].number == action.index){
+                    state.todoList[i].done = false;
+                }
+            }
+            return Object.assign({}, state, {todoList: state.todoList});
+
         default:
             return state
     }
