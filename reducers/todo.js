@@ -1,4 +1,4 @@
-import {ADD_TODO,DELETE_TODO,COMPLETE_TODO,UNDO_TODO} from '../actions/constants';
+import {ADD_TODO,DELETE_TODO,COMPLETE_TODO,UNDO_TODO,FETCH_START,FETCH_COMPLETE,FETCH_ERROR,SET_TOPIC} from '../actions/constants';
 
 //初始state
 const initialState = {
@@ -19,14 +19,18 @@ const initialState = {
         { number: 12, title: 'Express', detail: 'http://expressjs.com/',done: false},
         { number: 13, title: 'Koa', detail: 'http://koajs.com/',done: false}
     ],
-    data: []
+    searchTopic: '',
+    bookList: {
+        items:[]
+    },
+    getData: false
 }
-
 
 // 通过dispatch action进入
 export default function update(state = initialState, action) {
     // 根据不同的action type进行state的更新
-    //console.log(action.type);
+    console.log(action);
+    console.log(action.type);
     switch(action.type) {
         case ADD_TODO:
             var l = {};
@@ -67,7 +71,25 @@ export default function update(state = initialState, action) {
                 }
             }
             return Object.assign({}, state, {todoList: state.todoList});
-
+            break;
+         case FETCH_START:
+            console.log('FETCH_START');
+            return state;
+            break;
+        case FETCH_ERROR:
+            console.log('FETCH_ERROR:' + action.error);
+            // state.getData = false;
+            return state;
+            break;
+        case  FETCH_COMPLETE:
+            console.log('FETCH_COMPLETE');
+            state.getData = true;
+            return Object.assign({}, state, {bookList: action.json});
+            break;
+        case SET_TOPIC:
+            state.searchTopic = action.searchTopic;
+            return state;
+            break;
         default:
             return state
     }

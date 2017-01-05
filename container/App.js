@@ -33,6 +33,9 @@ export default class App extends React.Component{
             					<li>
               						<Link to="/" activeClassName="active">Home</Link>
             					</li>
+                      <li>
+                          <Link to="book" activeClassName="active">Book</Link>
+                      </li>
               					<li>
                 					<Link to="todolist" activeClassName="active">ToDo</Link>
               					</li>

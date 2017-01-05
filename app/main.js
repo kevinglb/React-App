@@ -10,14 +10,13 @@ import router from '../router';
 import DevTool from '../container/DevTool';
 
 
-
 // const store = finalCreateStore(reducer);
 const app = document.getElementById('app');
 // 给增强后的store传入reducer
 
 // 创建一个增强版的history来结合store同步导航事件
 // const history = syncHistoryWithStore(browserHistory, store);
-// const store = store();
+
 ReactDOM.render(
 	<Provider store={store}>
 		<div>
