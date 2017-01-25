@@ -465,3 +465,5 @@ template {
 /* extra */
 a{text-decoration: none;}
 ul, li{list-style-type: none;}
+
+.clearfix{clear: both;}
