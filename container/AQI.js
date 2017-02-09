@@ -98,9 +98,9 @@ class AQI extends React.Component{
              {(this.state.searchCity.length > 0 && getFillList)? <SearchList data={fillList} />: null}
           </div>
 
-          <div className="result-group">
-            {getAqiData? <AQIDiv data={aqiData} />: null}
-          </div>
+          // <div className="result-group">
+          //   {getAqiData? <AQIDiv data={aqiData} />: null}
+          // </div>
         </div>
 				
 			</div>
