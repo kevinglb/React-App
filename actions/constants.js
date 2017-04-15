@@ -16,5 +16,7 @@ export const UNDO_TODO = 'UNDO_TODO';
 //bookSearch
 export const SET_TOPIC = 'SET_TOPIC';
 
-
+//AQI Search
+export const SET_CITY = 'SET_CITY';
+export const SEARCH_AQI = 'SEARCH_AQI';
 

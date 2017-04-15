@@ -146,3 +146,8 @@ footer {
 .addContainer .btnWrap button{ 
   float: right;
 }
+
+div.tab{
+  text-align: center
+}
+

@@ -44,6 +44,11 @@ export default class Navigation extends React.Component{
                   <span className="glyphicon glyphicon-plus"></span>
                 </Link>
               </li>
+              <li>
+                <Link  to="aqi" activeClassName="active">
+                  AQI
+                </Link>
+              </li>
         		  	</ul>
        			 </div>
       		</div>

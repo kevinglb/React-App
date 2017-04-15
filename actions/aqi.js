@@ -1,51 +1,30 @@
-import {BOOK_SEARCH,GETSUCCESS,FETCH_START,FETCH_COMPLETE,FETCH_ERROR,SET_TOPIC} from './constants';
+import {FETCH_START,FETCH_COMPLETE,FETCH_ERROR,SET_CITY,SEARCH_AQI} from './constants';
 import 'whatwg-fetch';
 import store from '../store/store';
 
-export const fetchStart = () => ({
+const fetchStart = () => ({
     type: FETCH_START
 });
 
-export const fetchComplete = json => ({
+const fetchComplete = json => ({
     type: FETCH_COMPLETE,
     json: json
 });
 
 
-export const fetchFail = error => ({
+const fetchFail = error => ({
     type: FETCH_ERROR,
     error: error
 });
 
-// export function getSuccess(data){
-// 	return {
-// 		type: GETSUCCESS,
-//         data: data
-// 	};
-// }
-
-// export function bookSearch(topic){
-// 	return (dispatch, getState) =>{
-// 		return fetchBooks(topic);
-// 	};
-// }
-
 //here the state refers to the global state=> initialState
-const fetchBook = (dispatch, state) => {
+const fetchAqi = (dispatch, state) => {
     //dispatch(fetchStart);
     
-    const url = 'https://api.douban.com/v2/book/search?q=' + state.update.searchTopic;
-    fetch(url,{
-        // headers:{
-        //     "Access-Control-Allow-Origin": "*",
-        //     "Access-Control-Allow-Headers": "Content-Type"
-        // },
-        mode: 'no-cors',
-        cache: 'default'
-    }).then(function(res){
+    const url = 'https://api.douban.com/v2/book/search?q=' + state.aqi.searchCity;
+    fetch(url).then(function(res){
         console.log(res);
         if(res.ok){
-
             return res.json();
         }else{
             console.log('response is not succeed');
@@ -62,18 +41,16 @@ const fetchBook = (dispatch, state) => {
     });
 }
 
-export const fetchBooks = () => {
-    return {
-        type: FETCH_START,
-        fn: fetchBook
-    };
-}
+export const searchCityAqi = () => ({
+    type: FETCH_START,
+    fn: fetchAqi 
+});
 
 
-export const setTopic = topic =>{
+export const setCity = city =>{
     return {
-        type: SET_TOPIC,
-        searchTopic: topic
+        type: SET_CITY,
+        searchCity: city
     }
 }
 

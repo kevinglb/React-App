@@ -75,7 +75,6 @@ class Book extends React.Component{
 
 function mapStateToProps(state){
 	return {
-
 		bookList: state.update.bookList,
 		getData: state.update.getData
 	};

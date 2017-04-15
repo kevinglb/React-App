@@ -67,7 +67,7 @@ class DoneList extends React.Component{
 
         return(
             <div className="todoList">
-                <h1 className="text-center">Undone List</h1>
+                <h1 className="text-center">Done List</h1>
                 <Input type="text" value={this.state.searchString} onChange={this.handleChange} placeholder="Type here" />
                 <ul>
                     {ToDoList} 
