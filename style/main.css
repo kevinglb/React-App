@@ -147,7 +147,108 @@ footer {
   float: right;
 }
 
+<<<<<<< HEAD
 div.tab{
   text-align: center
 }
 
+=======
+button{
+  border: none;
+  background: transparent;
+}
+/*aqi-container*/
+.aqi-container .input-auto-complete{
+  width: 100%;
+  position: relative;
+}
+.aqi-container .input-auto-complete ul{
+  width: 100%;
+  height: auto;
+  position: absolute;
+  left: 0;
+  top: 0;
+  padding-left: 10px;
+  max-height: 420px;
+  overflow-y: auto;
+}
+
+.aqi-container .input-auto-complete ul li {
+  padding: 5px 0;
+  line-height: 32px;
+
+}
+.aqi-container .input-auto-complete ul li{
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+.aqi-container .input-auto-complete ul li div{
+  position: relative;
+  float: left;
+  margin-right: 10px;
+  color:#000;
+
+}
+.aqi-container .input-auto-complete ul li .aqi-info{
+  width: 60px;
+  font-size: 18px;
+  height: 28px;
+  border-radius: 7.25px;
+}
+.aqi-container .input-auto-complete ul li .aqi-info.green{
+   background-color: #009966;
+}
+.aqi-container .input-auto-complete ul li .aqi-info.yellow{
+   background-color: rgb(255, 222, 51)
+}
+.aqi-container .input-auto-complete ul li .aqi-info.orange{
+   background-color: rgb(255, 153, 51);
+}
+.aqi-container .input-auto-complete ul li .aqi-info.red{
+   background-color: rgb(204, 0, 51);
+   color: #fff;
+}
+.aqi-container .input-auto-complete ul li .aqi-info.purple{
+   background-color:#660099;
+   color: #fff;
+}
+
+.aqi-container .result-group{
+  margin-top: 45px;
+}
+
+.aqi-container .result-group .aqi-title{
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+.aqi-container .result-group .aqi-val{
+  position: relative;
+  margin: 0 auto;
+  font-size: 5rem;
+  height: 12rem;
+  width: 12rem;
+  line-height: 12rem;
+  border-radius: 100%;
+}
+.aqi-container .result-group .aqi-info{
+  height: 10rem;
+  margin: 1rem auto; 
+}
+.aqi-container .result-group .aqi-val.green{
+  background-color: #009966;
+}
+.aqi-container .result-group .aqi-val.yellow{
+  background-color: rgb(255, 222, 51)
+}
+.aqi-container .result-group .aqi-val.orange{
+  background-color: rgb(255, 153, 51)
+}
+.aqi-container .result-group .aqi-val.red{
+  background-color: rgb(204, 0, 51)
+}
+.aqi-container .result-group .aqi-val.purple{
+   background-color:#660099
+}
+>>>>>>> 4ced95e1ac822359ecad0c160a8e1e35c3ea1a67
