@@ -12,7 +12,6 @@ export const fetchComplete = json => ({
     json: json
 });
 
-
 export const fetchFail = error => ({
     type: 'error',
     error: error

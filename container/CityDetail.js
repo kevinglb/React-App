@@ -12,7 +12,7 @@ import store from '../store/store';
 
 import SearchList  from '../component/SearchList';
 
-class CityAqi extends React.Component{
+class CityDetail extends React.Component{
 	constructor(props) {
   		super(props);
   		this.state = {
@@ -23,8 +23,12 @@ class CityAqi extends React.Component{
 
   }
   componentWillMount(){
+    /*
+      从不同链接进入获取的pathname会有一个'/'之差
+    */
   	let pathname = this.props.location.pathname;
-    let city = pathname.split('/')[2];
+    let city = pathname.replace(/^\//,'').split('/')[1];
+
     store.dispatch(setCity(city));
     store.dispatch(searchAQI(city));
   }
@@ -62,4 +66,4 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({searchAQI,setCity,fillStation}, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CityAqi);
+export default connect(mapStateToProps, mapDispatchToProps)(CityDetail);

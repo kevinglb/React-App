@@ -61,18 +61,18 @@ export default class SearchList extends React.Component{
   generateList(li,i){
     let aqi = li.s.a,
         country = li.c,
-        city= li.n[0],
+        city= li.s.n[0],
         station = this.getFullName(li.s.n);
     return (
         <li className="col-lg-12" key={'station-'+i}>
-          <Link to={'api/'+city}>
-            <div className={"aqi-info text-center "+this.getColorStyle(aqi)}>
+          <Link to={'aqi/'+city}>
+            <div className={"aqi-info text-center col-lg-3"+this.getColorStyle(aqi)}>
               {aqi}
             </div>
-            <div className="aqi-country text-center">
+            <div className="aqi-country text-center col-lg-3">
               {country}
             </div>
-            <div className="aqi-station ">
+            <div className="aqi-station col-lg-3">
               {station}
             </div>
             <div className="clearfix"></div>

@@ -30563,7 +30563,7 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var rootReducer = (0, _redux.combineReducers)({
-
+	  update: _todo2.default,
 	  aqi: _AQI2.default,
 	  routerReducer: _reactRouterRedux.routerReducer
 	});
@@ -46257,11 +46257,11 @@
 
 	var _AQI2 = _interopRequireDefault(_AQI);
 
-	var _CityAqi = __webpack_require__(673);
+	var _CityDetail = __webpack_require__(671);
 
-	var _CityAqi2 = _interopRequireDefault(_CityAqi);
+	var _CityDetail2 = _interopRequireDefault(_CityDetail);
 
-	var _AddContainer = __webpack_require__(671);
+	var _AddContainer = __webpack_require__(672);
 
 	var _AddContainer2 = _interopRequireDefault(_AddContainer);
 
@@ -46275,7 +46275,7 @@
 		_react2.default.createElement(_reactRouter.Route, { path: 'undonelist', component: _UndoneList2.default }),
 		_react2.default.createElement(_reactRouter.Route, { path: 'book', component: _Book2.default }),
 		_react2.default.createElement(_reactRouter.Route, { path: 'aqi', component: _AQI2.default }),
-		_react2.default.createElement(_reactRouter.Route, { path: 'aqi/:city', component: _CityAqi2.default }),
+		_react2.default.createElement(_reactRouter.Route, { path: 'aqi/:city', component: _CityDetail2.default }),
 		_react2.default.createElement(_reactRouter.Route, { path: 'add', component: _AddContainer2.default }),
 		_react2.default.createElement(_reactRouter.Route, { path: 'donelist', component: _DoneList2.default })
 	);
@@ -47856,7 +47856,6 @@
 	    key: 'handleChange',
 	    value: function handleChange(e) {
 	      var city = e.target.value;
-
 	      this.setState({ searchCity: e.target.value });
 
 	      _store2.default.dispatch((0, _aqi.setCity)(city));
@@ -47934,13 +47933,10 @@
 	            { className: 'input-auto-complete' },
 	            this.state.searchCity.length > 0 && getFillList ? _react2.default.createElement(_SearchList2.default, { data: fillList }) : null
 	          ),
-	          '// ',
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'result-group' },
-	            '//   ',
-	            getAqiData ? _react2.default.createElement(_AQIDiv2.default, { data: aqiData }) : null,
-	            '// '
+	            getAqiData ? _react2.default.createElement(_AQIDiv2.default, { data: aqiData }) : null
 	          )
 	        )
 	      );
@@ -48317,27 +48313,27 @@
 	    value: function generateList(li, i) {
 	      var aqi = li.s.a,
 	          country = li.c,
-	          city = li.n[0],
+	          city = li.s.n[0],
 	          station = this.getFullName(li.s.n);
 	      return _react2.default.createElement(
 	        'li',
 	        { className: 'col-lg-12', key: 'station-' + i },
 	        _react2.default.createElement(
 	          _reactRouter.Link,
-	          { to: 'api/' + city },
+	          { to: 'aqi/' + city },
 	          _react2.default.createElement(
 	            'div',
-	            { className: "aqi-info text-center " + this.getColorStyle(aqi) },
+	            { className: "aqi-info text-center col-lg-3" + this.getColorStyle(aqi) },
 	            aqi
 	          ),
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'aqi-country text-center' },
+	            { className: 'aqi-country text-center col-lg-3' },
 	            country
 	          ),
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'aqi-station ' },
+	            { className: 'aqi-station col-lg-3' },
 	            station
 	          ),
 	          _react2.default.createElement('div', { className: 'clearfix' })
@@ -48370,6 +48366,131 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(32);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	var _Button = __webpack_require__(660);
+
+	var _Button2 = _interopRequireDefault(_Button);
+
+	var _Input = __webpack_require__(659);
+
+	var _Input2 = _interopRequireDefault(_Input);
+
+	var _AQIDiv = __webpack_require__(669);
+
+	var _AQIDiv2 = _interopRequireDefault(_AQIDiv);
+
+	var _aqi = __webpack_require__(668);
+
+	var _redux = __webpack_require__(255);
+
+	var _reactRedux = __webpack_require__(246);
+
+	var _store = __webpack_require__(282);
+
+	var _store2 = _interopRequireDefault(_store);
+
+	var _SearchList = __webpack_require__(670);
+
+	var _SearchList2 = _interopRequireDefault(_SearchList);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var CityDetail = function (_React$Component) {
+	  _inherits(CityDetail, _React$Component);
+
+	  function CityDetail(props) {
+	    _classCallCheck(this, CityDetail);
+
+	    var _this = _possibleConstructorReturn(this, (CityDetail.__proto__ || Object.getPrototypeOf(CityDetail)).call(this, props));
+
+	    _this.state = {
+	      searchCity: '',
+	      getData: false
+	    };
+	    _this.props = _this.props;
+
+	    return _this;
+	  }
+
+	  _createClass(CityDetail, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      /*
+	        从不同链接进入获取的pathname会有一个'/'之差
+	      */
+	      var pathname = this.props.location.pathname;
+	      var city = pathname.replace(/^\//, '').split('/')[1];
+
+	      _store2.default.dispatch((0, _aqi.setCity)(city));
+	      _store2.default.dispatch((0, _aqi.searchAQI)(city));
+	    }
+	  }, {
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps() {}
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _props = this.props,
+	          getAqiData = _props.getAqiData,
+	          getFillList = _props.getFillList;
+
+	      if (getAqiData) {
+	        var aqiData = this.props.aqiData;
+	      }
+
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'container aqi-container' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'result-group' },
+	          getAqiData ? _react2.default.createElement(_AQIDiv2.default, { data: aqiData }) : null
+	        )
+	      );
+	    }
+	  }]);
+
+	  return CityDetail;
+	}(_react2.default.Component);
+
+	function mapStateToProps(state) {
+	  return {
+	    aqiData: state.aqi.aqiData,
+	    getAqiData: state.aqi.getAqiData
+	  };
+	}
+
+	function mapDispatchToProps(dispatch) {
+	  return (0, _redux.bindActionCreators)({ searchAQI: _aqi.searchAQI, setCity: _aqi.setCity, fillStation: _aqi.fillStation }, dispatch);
+	}
+
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(CityDetail);
+
+/***/ },
+/* 672 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
 
@@ -48387,7 +48508,7 @@
 
 	var _Button2 = _interopRequireDefault(_Button);
 
-	var _TextArea = __webpack_require__(672);
+	var _TextArea = __webpack_require__(673);
 
 	var _TextArea2 = _interopRequireDefault(_TextArea);
 
@@ -48523,7 +48644,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(AddContainer);
 
 /***/ },
-/* 672 */
+/* 673 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -48570,127 +48691,6 @@
 	}(_react2.default.Component);
 
 	exports.default = TextArea;
-
-/***/ },
-/* 673 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactDom = __webpack_require__(32);
-
-	var _reactDom2 = _interopRequireDefault(_reactDom);
-
-	var _Button = __webpack_require__(660);
-
-	var _Button2 = _interopRequireDefault(_Button);
-
-	var _Input = __webpack_require__(659);
-
-	var _Input2 = _interopRequireDefault(_Input);
-
-	var _AQIDiv = __webpack_require__(669);
-
-	var _AQIDiv2 = _interopRequireDefault(_AQIDiv);
-
-	var _aqi = __webpack_require__(668);
-
-	var _redux = __webpack_require__(255);
-
-	var _reactRedux = __webpack_require__(246);
-
-	var _store = __webpack_require__(282);
-
-	var _store2 = _interopRequireDefault(_store);
-
-	var _SearchList = __webpack_require__(670);
-
-	var _SearchList2 = _interopRequireDefault(_SearchList);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var CityAqi = function (_React$Component) {
-	  _inherits(CityAqi, _React$Component);
-
-	  function CityAqi(props) {
-	    _classCallCheck(this, CityAqi);
-
-	    var _this = _possibleConstructorReturn(this, (CityAqi.__proto__ || Object.getPrototypeOf(CityAqi)).call(this, props));
-
-	    _this.state = {
-	      searchCity: '',
-	      getData: false
-	    };
-	    _this.props = _this.props;
-
-	    return _this;
-	  }
-
-	  _createClass(CityAqi, [{
-	    key: 'componentWillMount',
-	    value: function componentWillMount() {
-	      var pathname = this.props.location.pathname;
-	      var city = pathname.split('/')[2];
-	      _store2.default.dispatch((0, _aqi.setCity)(city));
-	      _store2.default.dispatch((0, _aqi.searchAQI)(city));
-	    }
-	  }, {
-	    key: 'componentWillReceiveProps',
-	    value: function componentWillReceiveProps() {}
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var _props = this.props,
-	          getAqiData = _props.getAqiData,
-	          getFillList = _props.getFillList;
-
-	      if (getAqiData) {
-	        var aqiData = this.props.aqiData;
-	      }
-
-	      return _react2.default.createElement(
-	        'div',
-	        { className: 'container aqi-container' },
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'result-group' },
-	          getAqiData ? _react2.default.createElement(_AQIDiv2.default, { data: aqiData }) : null
-	        )
-	      );
-	    }
-	  }]);
-
-	  return CityAqi;
-	}(_react2.default.Component);
-
-	function mapStateToProps(state) {
-	  return {
-	    aqiData: state.aqi.aqiData,
-	    getAqiData: state.aqi.getAqiData
-	  };
-	}
-
-	function mapDispatchToProps(dispatch) {
-	  return (0, _redux.bindActionCreators)({ searchAQI: _aqi.searchAQI, setCity: _aqi.setCity, fillStation: _aqi.fillStation }, dispatch);
-	}
-
-	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(CityAqi);
 
 /***/ }
 /******/ ]);

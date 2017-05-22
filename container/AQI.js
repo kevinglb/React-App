@@ -29,7 +29,6 @@ class AQI extends React.Component{
 
   handleChange(e){
   	let city = e.target.value;
-
   	this.setState({searchCity: e.target.value});
   	
     store.dispatch(setCity(city));
@@ -98,9 +97,10 @@ class AQI extends React.Component{
              {(this.state.searchCity.length > 0 && getFillList)? <SearchList data={fillList} />: null}
           </div>
 
-          // <div className="result-group">
-          //   {getAqiData? <AQIDiv data={aqiData} />: null}
-          // </div>
+          <div className="result-group">
+            {getAqiData? <AQIDiv da
+              ta={aqiData} />: null}
+          </div>
         </div>
 				
 			</div>
