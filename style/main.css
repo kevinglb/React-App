@@ -147,6 +147,12 @@ footer {
   float: right;
 }
 
+<<<<<<< HEAD
+div.tab{
+  text-align: center
+}
+
+=======
 button{
   border: none;
   background: transparent;
@@ -244,3 +250,4 @@ button{
 .aqi-container .result-group .aqi-val.purple{
    background-color:#660099
 }
+>>>>>>> 4ced95e1ac822359ecad0c160a8e1e35c3ea1a67

@@ -33,20 +33,33 @@ export const fetchFail = error => ({
 //here the state refers to the global state=> initialState
 const fetchBook = (dispatch, state) => {
     //dispatch(fetchStart);
-   
-    const url = 'https://www.googleapis.com/books/v1/volumes/?q=' + state.update.searchTopic;
-    fetch(url)
-        .then(res => res.json())
-        .then(json => {
-            if(json.error){
-                dispatch(fetchFail(json.error));
-            }else{
-                dispatch(fetchComplete(json));
-            }
-        })
-        .catch((json) => {
+    
+    const url = 'https://api.douban.com/v2/book/search?q=' + state.update.searchTopic;
+    fetch(url,{
+        // headers:{
+        //     "Access-Control-Allow-Origin": "*",
+        //     "Access-Control-Allow-Headers": "Content-Type"
+        // },
+        mode: 'no-cors',
+        cache: 'default'
+    }).then(function(res){
+        console.log(res);
+        if(res.ok){
+
+            return res.json();
+        }else{
+            console.log('response is not succeed');
+        }
+    }).then(json => {
+        if(json.error){
             dispatch(fetchFail(json.error));
-        });
+        }else{
+            console.log(json);
+            dispatch(fetchComplete(json));
+        }
+    }).catch((json) => {
+        dispatch(fetchFail(json.error));
+    });
 }
 
 export const fetchBooks = () => {

@@ -45,9 +45,13 @@ export default class App extends React.Component{
                 					</Link>
               					</li>
                         <li>
+<<<<<<< HEAD
+                          <Link to="aqi" activeClassName="active">AQI</Link>
+=======
                           <Link to="aqi" activeClassName="active">
                             AQI
                           </Link>
+>>>>>>> 4ced95e1ac822359ecad0c160a8e1e35c3ea1a67
                         </li>
         		  			</ul>
        			 		</div>

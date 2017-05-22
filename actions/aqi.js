@@ -1,4 +1,3 @@
-
 import {FETCH_START,FETCH_COMPLETE,FETCH_ERROR,SET_CITY,SEARCH_AQI,STATION_AUTO_COMPLETE,STATION_AUTO_COMPLETE_FAIL,STATION_AUTO_COMPLETE_SUCCESS} from './constants';
 import 'whatwg-fetch';
 import store from '../store/store';
@@ -8,9 +7,11 @@ export const fetchStart = () => ({
 });
 
 export const fetchComplete = json => ({
+
     type: FETCH_COMPLETE,
     json: json
 });
+
 
 export const fetchFail = error => ({
     type: 'error',
@@ -76,3 +77,4 @@ export const stationAutoSuccess = json => ({
     type: STATION_AUTO_COMPLETE_SUCCESS,
     json: json
 });
+

@@ -1,3 +1,4 @@
+
 import React,{Component,PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import {render} from 'react-dom';
@@ -9,6 +10,7 @@ import { connect } from 'react-redux';
 import store from '../store/store';
 import AQIDiv from '../component/AQIDiv';
 import SearchList  from '../component/SearchList';
+
 
 class AQI extends React.Component{
 	constructor(props) {
@@ -23,6 +25,7 @@ class AQI extends React.Component{
       this.handleKeyPress = this.handleKeyPress.bind(this);
 
   }
+
   componentWillMount(){
   		//store.dispatch(fetchBooks('javascript'));
   }
@@ -103,6 +106,7 @@ class AQI extends React.Component{
           </div>
         </div>
 				
+
 			</div>
 		);
 	}
@@ -110,15 +114,19 @@ class AQI extends React.Component{
 
 function mapStateToProps(state){
 	return {
+
 		aqiData: state.aqi.aqiData,
     fillList: state.aqi.fillList,
     getAqiData: state.aqi.getAqiData,
     getFillList: state.aqi.getFillList
+
 	};
 }
 
 function mapDispatchToProps(dispatch) {
+
   return bindActionCreators({searchAQI,setCity,fillStation}, dispatch);
+
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AQI);

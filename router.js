@@ -8,6 +8,7 @@ import ToDoList from './container/ToDoList';
 import Book from './container/Book';
 import AQI from './container/AQI';
 import CityDetail from './container/CityDetail';
+
 import AddContainer from './container/AddContainer';
 
 export default (
@@ -20,5 +21,6 @@ export default (
 		<Route path="aqi/:city" component={CityDetail}/>
 		<Route path="add" component={AddContainer}></Route>
 		<Route path="donelist" component={DoneList}></Route>
+		<Route path="aqi" component={AQI}></Route>
 	</Route>
 );
